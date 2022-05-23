@@ -1,0 +1,12 @@
+﻿Autenticação e autorização usando jwt
+Testes unitários com Moq
+Repositório com interface para comunicação
+Swagger
+Versionamento de APIs
+gRPC?
+Camadas
+Core, handlers, infrastructure, interfaces and models
+Docker File
+Abstração para entregar para controller
+Percentual de teste com o coverlet
+Policies and Roles na Authorization

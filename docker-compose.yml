@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  challengenet.api:
+    image: ${DOCKER_REGISTRY-}challengenet
+    build:
+      context: .
+      dockerfile: ChallengeNet.API/Dockerfile

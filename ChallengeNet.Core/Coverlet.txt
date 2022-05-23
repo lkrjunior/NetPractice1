@@ -1,0 +1,15 @@
+﻿dotnet test /p:CollectCoverage=true /p:Exclude="\"[*]MIDeEVO.Common.*%2c[*]MIDeEVO.Azure.*%2c[*]MIDeEVO.NFCe.Contingencia.Worker.Models.*%2c[*]MIDeEVO.NFCe.Contingencia.Worker.Extensions.*%2c[*]ConnectedServices_*%2c[*]MIDeEVO.NFCe.Contingencia.Worker.Exceptions.*\"" /p:ThresholdType=method /p:Threshold=80
+
+dotnet test /p:CollectCoverage=true /p:Exclude="\"[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*\"" /p:ThresholdType=method /p:Threshold=80
+
+dotnet test /p:CollectCoverage=true /p:Exclude="\"[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.*\"" /p:ThresholdType=method /p:Threshold=80
+
+dotnet test /p:CollectCoverage=true /p:Exclude="\"[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.*\"" /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80
+
+dotnet test /p:CollectCoverage=true /p:Exclude="\"[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.*\"" /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80
+
+dotnet test ChallengeNet.Test /p:CollectCoverage=true /p:Exclude="\"[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.*\"" /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80
+
+dotnet test ChallengeNet.Test /p:CollectCoverage=true /p:Exclude="\"[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.*\"" /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80
+
+dotnet test ChallengeNet.Test /p:CollectCoverage=true /p:Exclude="\"[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.*\"" /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80

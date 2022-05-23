@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Models\" />
+    <None Remove="Models\Request\" />
+    <None Remove="Models\Response\" />
+    <None Remove="Microsoft.AspNetCore.Http" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Core\" />
+    <None Remove="Handlers\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Core\Workers\" />
+    <None Remove="Core\HostedWorkers\" />
+    <None Remove="Infrastructure\" />
+    <None Remove="Models\Register\" />
+    <None Remove="FluentValidation" />
+    <None Remove="Validator\" />
+    <None Remove="Validator\Register\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Models\User\" />
+    <Folder Include="Models\Response\" />
+    <Folder Include="Core\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Core\Workers\" />
+    <Folder Include="Core\HostedWorkers\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Models\Register\" />
+    <Folder Include="Validator\" />
+    <Folder Include="Validator\Register\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
+    <PackageReference Include="FluentValidation" Version="11.0.1" />
+  </ItemGroup>
+</Project>
