@@ -12,3 +12,7 @@ dotnet test ChallengeNet.Test /p:CollectCoverage=true /p:Exclude="\"[*]Challenge
 
 Windows com logger
 dotnet test ChallengeNet.Test "--logger:trx;LogFileName=results.trx" /p:CollectCoverage=true /p:Exclude=[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.* /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80
+
+Tool Report
+dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.8.6
+reportgenerator "-reports:ChallengeNet.Test\coverage.cobertura.xml" "-targetdir:ChallengeNet.Test\TestResults\coveragereport" -reporttypes:Html
