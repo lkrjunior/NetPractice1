@@ -30,7 +30,7 @@ namespace ChallengeNet.Core.Core.Workers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
+                Logger.LogError(ex.Message, ex);
 
                 return HttpResponse<PessoaFisica>.AsError("Internal error, contact the administrator");
             }

@@ -25,12 +25,12 @@ namespace ChallengeNet.Core.Core.Workers
         }
 
         protected readonly IPessoaRepository<TEntity> PessoaRepository;
-        protected readonly ILogger<RegisterPessoaCoreBase<TEntity, TValidatorClass>> _logger;
+        protected readonly ILogger<RegisterPessoaCoreBase<TEntity, TValidatorClass>> Logger;
 
-        public RegisterPessoaCoreBase(IPessoaRepository<TEntity> pessoaRepository, ILogger<RegisterPessoaCoreBase<TEntity, TValidatorClass>> logger)
+        protected RegisterPessoaCoreBase(IPessoaRepository<TEntity> pessoaRepository, ILogger<RegisterPessoaCoreBase<TEntity, TValidatorClass>> logger)
         {
             PessoaRepository = pessoaRepository;
-            _logger = logger;
+            Logger = logger;
         }
 
         public async Task<HttpResponse<TEntity>> Create(TEntity pessoa)
@@ -54,7 +54,7 @@ namespace ChallengeNet.Core.Core.Workers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
+                Logger.LogError(ex.Message, ex);
 
                 return HttpResponse<TEntity>.AsError("Internal error, contact the administrator");
             }
