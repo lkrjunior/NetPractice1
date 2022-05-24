@@ -42,7 +42,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"NetPractice1" /o:"lkrjunior" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.coverage.exclusions="**/Infrastructure/*,**/Models/*"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"NetPractice1" /o:"lkrjunior" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" /d:sonar.coverage.exclusions="**/Infrastructure/*,**/Models/*,**/Models/**/*"
           dotnet tool install --global dotnet-coverage
           dotnet restore ChallengeNet.API
           dotnet test ChallengeNet.Test "--logger:trx;LogFileName=results.trx" /p:CollectCoverage=true /p:Exclude=[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.* /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80
