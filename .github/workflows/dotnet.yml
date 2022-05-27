@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ChallengeNet.API
     - name: Build
-      run: dotnet build ChallengeNet.API.csproj --no-restore
+      run: dotnet build ChallengeNet.API --no-restore
     - name: Test
-      run: dotnet test ChallengeNet.Test.csproj --no-build --verbosity normal
+      run: dotnet test ChallengeNet.Test --no-build --verbosity normal
