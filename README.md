@@ -2,6 +2,8 @@
 
 ## Luciano Rocha
 
+[![.NET](https://github.com/lkrjunior/NetPractice1/actions/workflows/dotnet.yml/badge.svg)](https://github.com/lkrjunior/NetPractice1/actions/workflows/dotnet.yml)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=NetPractice1&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=NetPractice1)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=NetPractice1&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=NetPractice1)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=NetPractice1&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=NetPractice1)
