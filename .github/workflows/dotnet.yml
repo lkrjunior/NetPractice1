@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build ChallengeNet.API --no-restore
+      run: dotnet build ChallengeNet.API.csproj --no-restore
     - name: Test
-      run: dotnet test ChallengeNet.Test --no-build --verbosity normal
+      run: dotnet test ChallengeNet.Test.csproj --no-build --verbosity normal
