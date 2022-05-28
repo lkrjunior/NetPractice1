@@ -20,7 +20,7 @@ namespace ChallengeNet.Core.Core.Workers
             _logger = logger;
         }
 
-        public async Task<HttpResponse<AuthenticationResponse>> ExecuteAsync(User user)
+        public async Task<HttpResponse> ExecuteAsync(User user)
         {
             try
             {
@@ -28,18 +28,18 @@ namespace ChallengeNet.Core.Core.Workers
 
                 if (userFromRepository == default)
                 {
-                    return HttpResponse<AuthenticationResponse>.AsBadRequest("User or password invalid");
+                    return HttpResponse.AsBadRequest("User or password invalid");
                 }
 
                 var authenticationResponse = _authenticationHandler.GenerateAccessToken(userFromRepository);
 
-                return HttpResponse<AuthenticationResponse>.AsOk(authenticationResponse);
+                return HttpResponse.AsOk(authenticationResponse);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
 
-                return HttpResponse<AuthenticationResponse>.AsError("Internal error, contact the administrator");
+                return HttpResponse.AsError("Internal error, contact the administrator");
             }
         }
     }

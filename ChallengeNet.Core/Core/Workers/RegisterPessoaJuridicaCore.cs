@@ -15,7 +15,7 @@ namespace ChallengeNet.Core.Core.Workers
         {
         }
 
-        public async Task<HttpResponse<PessoaJuridica>> Find(string cnpj)
+        public async Task<HttpResponse> Find(string cnpj)
         {
             try
             {
@@ -23,16 +23,16 @@ namespace ChallengeNet.Core.Core.Workers
 
                 if (result == default)
                 {
-                    return HttpResponse<PessoaJuridica>.AsNotFound($"{nameof(cnpj)} not found");
+                    return HttpResponse.AsNotFound($"{nameof(cnpj)} not found");
                 }
 
-                return HttpResponse<PessoaJuridica>.AsOk(result);
+                return HttpResponse.AsOk(result);
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex.Message, ex);
 
-                return HttpResponse<PessoaJuridica>.AsError("Internal error, contact the administrator");
+                return HttpResponse.AsError("Internal error, contact the administrator");
             }
         }
 

@@ -15,7 +15,7 @@ namespace ChallengeNet.Core.Core.Workers
         {
         }
 
-        public async Task<HttpResponse<PessoaFisica>> Find(string cpf)
+        public async Task<HttpResponse> Find(string cpf)
         {
             try
             {
@@ -23,16 +23,16 @@ namespace ChallengeNet.Core.Core.Workers
 
                 if (result == default)
                 {
-                    return HttpResponse<PessoaFisica>.AsNotFound($"{nameof(cpf)} not found");
+                    return HttpResponse.AsNotFound($"{nameof(cpf)} not found");
                 }
 
-                return HttpResponse<PessoaFisica>.AsOk(result);
+                return HttpResponse.AsOk(result);
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex.Message, ex);
 
-                return HttpResponse<PessoaFisica>.AsError("Internal error, contact the administrator");
+                return HttpResponse.AsError("Internal error, contact the administrator");
             }
         }
 

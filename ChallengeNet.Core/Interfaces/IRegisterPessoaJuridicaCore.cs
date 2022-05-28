@@ -7,6 +7,6 @@ namespace ChallengeNet.Core.Interfaces
 {
     public interface IRegisterPessoaJuridicaCore : IRegisterPessoaCore<PessoaJuridica>
     {
-        Task<HttpResponse<PessoaJuridica>> Find(string cnpj);
+        Task<HttpResponse> Find(string cnpj);
     }
 }

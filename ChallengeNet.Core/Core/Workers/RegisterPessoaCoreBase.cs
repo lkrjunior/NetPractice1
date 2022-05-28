@@ -33,7 +33,7 @@ namespace ChallengeNet.Core.Core.Workers
             Logger = logger;
         }
 
-        public async Task<HttpResponse<TEntity>> Create(TEntity pessoa)
+        public async Task<HttpResponse> Create(TEntity pessoa)
         {
             try
             {
@@ -45,18 +45,18 @@ namespace ChallengeNet.Core.Core.Workers
                 {
                     var errorsMessage = GetErrorMessageFromValidation(validationResult);
 
-                    return HttpResponse<TEntity>.AsBadRequest(errorsMessage);
+                    return HttpResponse.AsBadRequest(errorsMessage);
                 }
 
                 await PessoaRepository.Create(pessoa);
 
-                return HttpResponse<TEntity>.AsOk(pessoa);
+                return HttpResponse.AsOk(pessoa);
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex.Message, ex);
 
-                return HttpResponse<TEntity>.AsError("Internal error, contact the administrator");
+                return HttpResponse.AsError("Internal error, contact the administrator");
             }
         }
 
