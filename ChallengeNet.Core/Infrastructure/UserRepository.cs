@@ -24,8 +24,8 @@ namespace ChallengeNet.Core.Infrastructure
         {
             var users = new User[]
             {
-                new User { UserName = "admin", Password = "admin", Role = Consts.RuleAdmin },
-                new User { UserName = "user", Password = "user", Role = Consts.RuleUser },
+                new User { UserName = "admin", Role = Consts.RuleAdmin },
+                new User { UserName = "user", Role = Consts.RuleUser },
             };
 
             return users;
@@ -34,6 +34,13 @@ namespace ChallengeNet.Core.Infrastructure
         public async Task<User> GetAsync(string userName, string password)
         {
             var user = _users.FirstOrDefault(x => x.UserName.Equals(userName) && x.Password.Equals(password));
+
+            return await Task.FromResult(user);
+        }
+
+        public async Task<User> GetAsync(string userName)
+        {
+            var user = _users.FirstOrDefault(x => x.UserName.Equals(userName));
 
             return await Task.FromResult(user);
         }

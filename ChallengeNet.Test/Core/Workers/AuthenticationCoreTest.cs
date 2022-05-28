@@ -35,12 +35,10 @@ namespace ChallengeNet.Test.Core.Workers
 
             var userRepository = new Mock<IUserRepository>();
             var currentUserName = default(string);
-            var currentPassword = default(string);
-            userRepository.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync((string userName, string password) =>
+            userRepository.Setup(x => x.GetAsync(It.IsAny<string>()))
+                .ReturnsAsync((string userName) =>
                 {
                     currentUserName = userName;
-                    currentPassword = password;
 
                     return userFromRepository;
                 });
@@ -63,12 +61,11 @@ namespace ChallengeNet.Test.Core.Workers
 
             #region Assert
 
-            userRepository.Verify(x => x.GetAsync(userName, password), Times.Once);
+            userRepository.Verify(x => x.GetAsync(userName), Times.Once);
 
             userTokenHandler.Verify(x => x.GenerateAccessToken(userFromRepository), Times.Once);
 
             Assert.Equal(currentUserName, userName);
-            Assert.Equal(currentPassword, password);
             Assert.False(result.HasError);
             Assert.NotNull(result.Data);
             Assert.Equal(expectedAuthenticationResponse, result.Data);
@@ -91,7 +88,7 @@ namespace ChallengeNet.Test.Core.Workers
             var userFromRepository = default(User);
 
             var userRepository = new Mock<IUserRepository>();
-            userRepository.Setup(x => x.GetAsync(userName, password)).ReturnsAsync(userFromRepository);
+            userRepository.Setup(x => x.GetAsync(userName)).ReturnsAsync(userFromRepository);
 
             var userTokenHandler = new Mock<IUserTokenHandler>();
             
@@ -109,7 +106,7 @@ namespace ChallengeNet.Test.Core.Workers
 
             #region Assert
 
-            userRepository.Verify(x => x.GetAsync(userName, password), Times.Once);
+            userRepository.Verify(x => x.GetAsync(userName), Times.Once);
 
             userTokenHandler.Verify(x => x.GenerateAccessToken(userFromRepository), Times.Never);
 
@@ -135,7 +132,7 @@ namespace ChallengeNet.Test.Core.Workers
             var userFromRepository = default(User);
 
             var userRepository = new Mock<IUserRepository>();
-            userRepository.Setup(x => x.GetAsync(userName, password)).Throws(new Exception("Cannot access repository"));
+            userRepository.Setup(x => x.GetAsync(userName)).Throws(new Exception("Cannot access repository"));
 
             var userTokenHandler = new Mock<IUserTokenHandler>();
             
@@ -153,7 +150,7 @@ namespace ChallengeNet.Test.Core.Workers
 
             #region Assert
 
-            userRepository.Verify(x => x.GetAsync(userName, password), Times.Once);
+            userRepository.Verify(x => x.GetAsync(userName), Times.Once);
 
             userTokenHandler.Verify(x => x.GenerateAccessToken(userFromRepository), Times.Never);
 

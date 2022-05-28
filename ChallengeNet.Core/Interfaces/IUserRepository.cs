@@ -6,5 +6,6 @@ namespace ChallengeNet.Core.Interfaces
     public interface IUserRepository
     {
         Task<User> GetAsync(string userName, string password);
+        Task<User> GetAsync(string userName);
     }
 }

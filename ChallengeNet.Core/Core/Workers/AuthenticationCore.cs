@@ -25,7 +25,7 @@ namespace ChallengeNet.Core.Core.Workers
         {
             try
             {
-                var userFromRepository = await _userRepository.GetAsync(user.UserName, user.Password);
+                var userFromRepository = await _userRepository.GetAsync(user.UserName);
 
                 if (userFromRepository == default)
                 {
