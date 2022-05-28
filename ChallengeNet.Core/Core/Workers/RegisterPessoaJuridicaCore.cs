@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ChallengeNet.Core.Interfaces;
+using ChallengeNet.Core.Models;
 using ChallengeNet.Core.Models.Register;
 using ChallengeNet.Core.Models.Response;
 using ChallengeNet.Core.Validator.Register;
@@ -23,7 +24,7 @@ namespace ChallengeNet.Core.Core.Workers
 
                 if (result == default)
                 {
-                    return HttpResponse.AsNotFound($"{nameof(cnpj)} not found");
+                    return HttpResponse.AsNotFound($"{nameof(cnpj)} {Consts.ErrorNotFoundDescription}");
                 }
 
                 return HttpResponse.AsOk(result);
@@ -32,7 +33,7 @@ namespace ChallengeNet.Core.Core.Workers
             {
                 Logger.LogError(ex.Message, ex);
 
-                return HttpResponse.AsError("Internal error, contact the administrator");
+                return HttpResponse.AsError(Consts.ErrorInternalServerDescription);
             }
         }
 

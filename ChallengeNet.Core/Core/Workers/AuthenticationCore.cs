@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ChallengeNet.Core.Interfaces;
+using ChallengeNet.Core.Models;
 using ChallengeNet.Core.Models.Response;
 using ChallengeNet.Core.Models.User;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,7 @@ namespace ChallengeNet.Core.Core.Workers
 
                 if (userFromRepository == default)
                 {
-                    return HttpResponse.AsBadRequest("User or password invalid");
+                    return HttpResponse.AsBadRequest(Consts.ErrorUserAndOrPasswordInvalidDescription);
                 }
 
                 var authenticationResponse = _authenticationHandler.GenerateAccessToken(userFromRepository);
@@ -39,7 +40,7 @@ namespace ChallengeNet.Core.Core.Workers
             {
                 _logger.LogError(ex.Message, ex);
 
-                return HttpResponse.AsError("Internal error, contact the administrator");
+                return HttpResponse.AsError(Consts.ErrorInternalServerDescription);
             }
         }
     }

@@ -17,5 +17,13 @@
         public const string RuleUser = "user";
 
         #endregion
+
+        #region Errors
+
+        public const string ErrorInternalServerDescription = "Internal server error, contact administrator";
+        public const string ErrorNotFoundDescription = "not found";
+        public const string ErrorUserAndOrPasswordInvalidDescription = "Username and/or Password invalid";
+
+        #endregion
     }
 }
