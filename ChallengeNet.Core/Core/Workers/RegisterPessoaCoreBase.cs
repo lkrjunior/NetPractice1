@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using ChallengeNet.Core.Interfaces;
 using ChallengeNet.Core.Models.Register;
@@ -12,16 +13,21 @@ namespace ChallengeNet.Core.Core.Workers
         where TEntity : PessoaBase
         where TValidatorClass : AbstractValidator<TEntity>
     {
-        private string GetErrorMessageFromValidation(FluentValidation.Results.ValidationResult validationResult)
+        private static string GetErrorMessageFromValidation(FluentValidation.Results.ValidationResult validationResult)
         {
-            var message = default(string);
+            var messageBuilder = new StringBuilder();
 
             foreach (var errorValidation in validationResult.Errors)
             {
-                message += $"{(message != default ? ", " : "")}{errorValidation}";
+                if (messageBuilder.Length > 0)
+                {
+                    messageBuilder.Append(", ");
+                }
+
+                messageBuilder.Append(errorValidation);
             }
 
-            return message;
+            return messageBuilder.ToString();
         }
 
         protected readonly IPessoaRepository<TEntity> PessoaRepository;

@@ -1,0 +1,2 @@
+﻿GitHub connections
+https://[user]:[personal_access_token]@github.com:443/lkrjunior/NetPractice1.git

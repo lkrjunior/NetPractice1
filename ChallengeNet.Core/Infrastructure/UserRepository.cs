@@ -20,7 +20,7 @@ namespace ChallengeNet.Core.Infrastructure
             _users = InitializeRepository();
         }
 
-        private IEnumerable<User> InitializeRepository()
+        private static IEnumerable<User> InitializeRepository()
         {
             var users = new User[]
             {
