@@ -17,7 +17,7 @@ namespace ChallengeNet.Core.Infrastructure
         {
             var result = Pessoas.FirstOrDefault(x => x.Cpf.Equals(searchDoc));
 
-            return await Task.Run(() => result);
+            return await Task.FromResult(result);
         }
     }
 }

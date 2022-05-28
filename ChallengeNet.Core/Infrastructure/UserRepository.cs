@@ -35,7 +35,7 @@ namespace ChallengeNet.Core.Infrastructure
         {
             var user = _users.FirstOrDefault(x => x.UserName.Equals(userName) && x.Password.Equals(password));
 
-            return await Task.Run(() => user);
+            return await Task.FromResult(user);
         }
     }
 }

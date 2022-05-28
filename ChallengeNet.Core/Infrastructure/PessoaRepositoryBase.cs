@@ -18,7 +18,7 @@ namespace ChallengeNet.Core.Infrastructure
 
             pessoa.Id = Pessoas.Select(x => x.Id).FirstOrDefault() + 1;
 
-            return await Task.Run(() => true);
+            return await Task.FromResult(true);
         }
 
         public abstract Task<T> Find(string searchDoc);
@@ -27,7 +27,7 @@ namespace ChallengeNet.Core.Infrastructure
         {
             var result = Pessoas.FirstOrDefault(x => x.Id.Equals(id));
 
-            return await Task.Run(() => result);
+            return await Task.FromResult(result);
         }
     }
 }
