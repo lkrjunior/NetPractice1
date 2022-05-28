@@ -6,6 +6,7 @@ using ChallengeNet.Core.Interfaces;
 using ChallengeNet.Core.Models.Register;
 using ChallengeNet.Core.Models.Response;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChallengeNet.API.Controllers
@@ -25,6 +26,10 @@ namespace ChallengeNet.API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost("pessoafisica/create")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PessoaFisica>> CreatePessoaFisica([FromBody] PessoaFisica pessoa)
         {
             var result = await _registerPessoaFisicaCore.Create(pessoa);
@@ -39,6 +44,10 @@ namespace ChallengeNet.API.Controllers
 
         [Authorize(Roles = "admin,user")]
         [HttpGet("pessoafisica/find")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PessoaFisica>> FindPessoaFisica([FromQuery] string cpf)
         {
             var result = await _registerPessoaFisicaCore.Find(cpf);
@@ -53,6 +62,10 @@ namespace ChallengeNet.API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost("pessoajuridica/create")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PessoaJuridica>> CreatePessoaJuridica([FromBody] PessoaJuridica pessoa)
         {
             var result = await _registerPessoaJuridicaCore.Create(pessoa);
@@ -67,6 +80,10 @@ namespace ChallengeNet.API.Controllers
 
         [Authorize(Roles = "admin,user")]
         [HttpGet("pessoajuridica/find")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PessoaJuridica>> FindPessoaJuridica([FromQuery] string cnpj)
         {
             var result = await _registerPessoaJuridicaCore.Find(cnpj);

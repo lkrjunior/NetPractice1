@@ -27,6 +27,7 @@ namespace ChallengeNet.API.Controllers
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<AuthenticationResponse>> Login([FromBody] User user)
         {
             var result = await _authenticationCore.ExecuteAsync(user);
