@@ -58,5 +58,28 @@ namespace ChallengeNet.Test.Handlers.GenerateXmlStrategy
 
             #endregion
         }
+
+        [Fact]
+        public void ShouldNotGenerateXmlWhenStrategyDoesntExists()
+        {
+            #region Arrange
+
+            var handler = new GenerateXmlHandler();
+
+            #endregion
+
+            #region Act
+
+            Action action = () => handler.GenerateXml((ProductType) 999);
+
+            #endregion
+
+            #region Assert
+
+            var exception = Assert.Throws<InvalidOperationException>(action);
+            Assert.NotNull(exception.Message);
+
+            #endregion
+        }
     }
 }
