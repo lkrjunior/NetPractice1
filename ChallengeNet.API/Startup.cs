@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ChallengeNet.Core.Core.Workers;
 using ChallengeNet.Core.Handlers;
 using ChallengeNet.Core.Handlers.GenerateXmlStrategy;
+using ChallengeNet.Core.Handlers.TaxCalculateStrategy;
+using ChallengeNet.Core.Handlers.TaxCalculateStrategy.Strategies;
 using ChallengeNet.Core.Infrastructure;
 using ChallengeNet.Core.Interfaces;
 using ChallengeNet.Core.Models;
@@ -105,6 +107,18 @@ namespace ChallengeNet.API
             services.AddSingleton<IPessoaRepository<PessoaJuridica>, PessoaJuridicaRepository>();
 
             services.AddSingleton<IGenerateXmlHandler, GenerateXmlHandler>();
+
+            services.AddSingleton<Func<ProductType, ITaxCalculateStrategy>>((productType) =>
+            {
+                return productType switch
+                {
+                    ProductType.Nfe => new TaxCalculateNfeStrategy(),
+                    ProductType.Nfce => new TaxCalculateNfceStrategy(),
+                    _ => throw new ArgumentException($"{nameof(ITaxCalculateStrategy)} not found"),
+                };
+            });
+
+            services.AddSingleton<ITaxCalculateWithFuncHandler, TaxCalculateWithFuncHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

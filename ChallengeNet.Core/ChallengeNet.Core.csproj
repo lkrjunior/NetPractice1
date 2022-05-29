@@ -23,6 +23,8 @@
     <None Remove="Models\Attribute\" />
     <None Remove="Handlers\GenerateXmlStrategy\" />
     <None Remove="Handlers\GenerateXmlStrategy\Strategies\" />
+    <None Remove="Handlers\TaxCalculateStrategy\" />
+    <None Remove="Handlers\TaxCalculateStrategy\Strategies\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -40,6 +42,8 @@
     <Folder Include="Models\AttributeStrategy\" />
     <Folder Include="Handlers\GenerateXmlStrategy\" />
     <Folder Include="Handlers\GenerateXmlStrategy\Strategies\" />
+    <Folder Include="Handlers\TaxCalculateStrategy\" />
+    <Folder Include="Handlers\TaxCalculateStrategy\Strategies\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />

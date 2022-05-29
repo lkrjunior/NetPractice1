@@ -33,6 +33,7 @@
     <None Remove="Fake\" />
     <None Remove="Validator\" />
     <None Remove="Handlers\GenerateXmlStrategy\" />
+    <None Remove="Handlers\TaxCalculateStrategy\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
@@ -41,6 +42,7 @@
     <Folder Include="Fake\" />
     <Folder Include="Validator\" />
     <Folder Include="Handlers\GenerateXmlStrategy\" />
+    <Folder Include="Handlers\TaxCalculateStrategy\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChallengeNet.Core\ChallengeNet.Core.csproj" />
