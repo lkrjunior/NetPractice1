@@ -20,6 +20,9 @@
     <None Remove="FluentValidation" />
     <None Remove="Validator\" />
     <None Remove="Validator\Register\" />
+    <None Remove="Models\Attribute\" />
+    <None Remove="Handlers\GenerateXmlStrategy\" />
+    <None Remove="Handlers\GenerateXmlStrategy\Strategies\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -34,6 +37,9 @@
     <Folder Include="Models\Register\" />
     <Folder Include="Validator\" />
     <Folder Include="Validator\Register\" />
+    <Folder Include="Models\AttributeStrategy\" />
+    <Folder Include="Handlers\GenerateXmlStrategy\" />
+    <Folder Include="Handlers\GenerateXmlStrategy\Strategies\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />

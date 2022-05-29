@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ChallengeNet.Core.Core.Workers;
 using ChallengeNet.Core.Handlers;
+using ChallengeNet.Core.Handlers.GenerateXmlStrategy;
 using ChallengeNet.Core.Infrastructure;
 using ChallengeNet.Core.Interfaces;
 using ChallengeNet.Core.Models;
@@ -102,6 +103,8 @@ namespace ChallengeNet.API
             services.AddSingleton<IRegisterPessoaJuridicaCore, RegisterPessoaJuridicaCore>();
             services.AddSingleton<IPessoaRepository<PessoaFisica>, PessoaFisicaRepository>();
             services.AddSingleton<IPessoaRepository<PessoaJuridica>, PessoaJuridicaRepository>();
+
+            services.AddSingleton<IGenerateXmlHandler, GenerateXmlHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
