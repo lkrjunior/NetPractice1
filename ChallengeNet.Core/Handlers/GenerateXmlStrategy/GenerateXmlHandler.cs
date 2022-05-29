@@ -17,7 +17,9 @@ namespace ChallengeNet.Core.Handlers.GenerateXmlStrategy
 
             var types = Assembly.GetExecutingAssembly().GetTypes();
 
-            foreach (var item in types.Where(x => (typeof(IGenerateXmlStrategy)).IsAssignableFrom(x) && !x.IsInterface))
+            var strategyTypes = types.Where(x => (typeof(IGenerateXmlStrategy)).IsAssignableFrom(x) && !x.IsInterface);
+
+            foreach (var item in strategyTypes)
             {
                 var strategies = item.GetCustomAttributes<ProductTypeStrategyAttribute>();
 
@@ -25,14 +27,7 @@ namespace ChallengeNet.Core.Handlers.GenerateXmlStrategy
                 {
                     if (strategyId != null)
                     {
-                        if (_strategyeMaps.ContainsKey(strategyId.Value))
-                        {
-                            throw new InvalidOperationException($"{nameof(GenerateXmlHandler)} cannot define more than one strategy to {strategyId.Value}");
-                        }
-                        else
-                        {
-                            _strategyeMaps.Add(strategyId.Value, item);
-                        }
+                        _strategyeMaps.TryAdd(strategyId.Value, item);
                     }
                 }
             }
