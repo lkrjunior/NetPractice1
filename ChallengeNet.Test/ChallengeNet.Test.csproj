@@ -32,6 +32,7 @@
     <None Remove="Moq" />
     <None Remove="Fake\" />
     <None Remove="Validator\" />
+    <None Remove="Handlers\GenerateXmlStrategy\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
@@ -39,6 +40,7 @@
     <Folder Include="Handlers\" />
     <Folder Include="Fake\" />
     <Folder Include="Validator\" />
+    <Folder Include="Handlers\GenerateXmlStrategy\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChallengeNet.Core\ChallengeNet.Core.csproj" />
