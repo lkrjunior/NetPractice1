@@ -2,6 +2,7 @@
 using ChallengeNet.Core.Handlers.TaxCalculateStrategy;
 using ChallengeNet.Core.Handlers.TaxCalculateStrategy.Strategies;
 using ChallengeNet.Core.Interfaces;
+using ChallengeNet.Core.Models;
 using Xunit;
 
 namespace ChallengeNet.Test.Handlers.TaxCalculateStrategy
@@ -9,9 +10,9 @@ namespace ChallengeNet.Test.Handlers.TaxCalculateStrategy
     public class TaxCalculateHandlerTest
     {
         [Theory]
-        [InlineData(typeof(TaxCalculateNfeStrategy), 3)]
-        [InlineData(typeof(TaxCalculateNfceStrategy), 2)]
-        public void ShouldTaxCalculateNfeAndNfceWhenValueIsValid(Type taxCalculateStrategy, double valueToValidate)
+        [InlineData(ProductType.Nfe, typeof(TaxCalculateNfeStrategy), 3)]
+        [InlineData(ProductType.Nfce, typeof(TaxCalculateNfceStrategy), 2)]
+        public void ShouldTaxCalculateNfeAndNfceWhenValueIsValid(ProductType productType, Type taxCalculateStrategy, double valueToValidate)
         {
             #region Arrange
 
@@ -34,6 +35,7 @@ namespace ChallengeNet.Test.Handlers.TaxCalculateStrategy
             #region Assert
 
             Assert.Equal(expectedValue, result);
+            Assert.Equal(productType, taxCalcuateStrategy.ProductType);
 
             #endregion
         }
