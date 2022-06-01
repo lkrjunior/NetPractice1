@@ -10,3 +10,7 @@ Docker File
 Abstração para entregar para controller
 Percentual de teste com o coverlet
 Policies and Roles na Authorization
+
+Use this to exclude a class from coverage
+using System.Diagnostics.CodeAnalysis;
+[ExcludeFromCodeCoverage]
