@@ -1,16 +1,20 @@
-﻿Autenticação e autorização usando jwt
-Testes unitários com Moq
-Repositório com interface para comunicação
-Swagger
-Versionamento de APIs
-gRPC?
-Camadas
-Core, handlers, infrastructure, interfaces and models
-Docker File
-Abstração para entregar para controller
-Percentual de teste com o coverlet
-Policies and Roles na Authorization
+﻿Features
+    Autenticação e autorização usando jwt
+    Testes unitários com Moq
+    Repositório com interface para comunicação
+    Swagger
+    Versionamento de APIs
+    gRPC?
+    Camadas
+    Core, handlers, infrastructure, interfaces and models
+    Docker File
+    Abstração para entregar para controller
+    Percentual de teste com o coverlet
+    Policies and Roles na Authorization
 
-Use this to exclude a class from coverage
-using System.Diagnostics.CodeAnalysis;
-[ExcludeFromCodeCoverage]
+Code
+    Use this to exclude a class from coverage
+        using System.Diagnostics.CodeAnalysis;
+        [ExcludeFromCodeCoverage]
+    Swagger Authorize
+        Authorization Value (apikey) = Bearer [accesstoken]
