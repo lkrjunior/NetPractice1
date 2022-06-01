@@ -49,13 +49,13 @@ namespace ChallengeNet.Test.Core.Workers
 
             var logger = new Mock<ILogger<AuthenticationWorker>>();
 
-            var authenticationCore = new AuthenticationWorker(userRepository.Object, userTokenHandler.Object, logger.Object);
+            var authenticationWorker = new AuthenticationWorker(userRepository.Object, userTokenHandler.Object, logger.Object);
 
             #endregion
 
             #region Act
 
-            var result = await authenticationCore.ExecuteAsync(user);
+            var result = await authenticationWorker.ExecuteAsync(user);
 
             #endregion
 
@@ -80,7 +80,6 @@ namespace ChallengeNet.Test.Core.Workers
 
             var userName = "username";
             var password = "password";
-            var expectedAccessToken = Guid.NewGuid().ToString();
             var expectedStatusCode = StatusCodes.Status400BadRequest;
 
             var user = UserFake.GenerateUser(userName, password);
@@ -94,13 +93,13 @@ namespace ChallengeNet.Test.Core.Workers
             
             var logger = new Mock<ILogger<AuthenticationWorker>>();
 
-            var authenticationCore = new AuthenticationWorker(userRepository.Object, userTokenHandler.Object, logger.Object);
+            var authenticationWorker = new AuthenticationWorker(userRepository.Object, userTokenHandler.Object, logger.Object);
 
             #endregion
 
             #region Act
 
-            var result = await authenticationCore.ExecuteAsync(user);
+            var result = await authenticationWorker.ExecuteAsync(user);
 
             #endregion
 
@@ -124,7 +123,6 @@ namespace ChallengeNet.Test.Core.Workers
 
             var userName = "username";
             var password = "password";
-            var expectedAccessToken = Guid.NewGuid().ToString();
             var expectedStatusCode = StatusCodes.Status500InternalServerError;
 
             var user = UserFake.GenerateUser(userName, password);
@@ -138,13 +136,13 @@ namespace ChallengeNet.Test.Core.Workers
             
             var logger = new Mock<ILogger<AuthenticationWorker>>();
 
-            var authenticationCore = new AuthenticationWorker(userRepository.Object, userTokenHandler.Object, logger.Object);
+            var authenticationWorker = new AuthenticationWorker(userRepository.Object, userTokenHandler.Object, logger.Object);
 
             #endregion
 
             #region Act
 
-            var result = await authenticationCore.ExecuteAsync(user);
+            var result = await authenticationWorker.ExecuteAsync(user);
 
             #endregion
 

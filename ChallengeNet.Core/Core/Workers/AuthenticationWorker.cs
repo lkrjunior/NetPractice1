@@ -21,7 +21,7 @@ namespace ChallengeNet.Core.Core.Workers
             _logger = logger;
         }
 
-        public async Task<CoreResponse> ExecuteAsync(User user)
+        public async Task<CoreResponse<AuthenticationResponse>> ExecuteAsync(User user)
         {
             try
             {
@@ -29,18 +29,18 @@ namespace ChallengeNet.Core.Core.Workers
 
                 if (userFromRepository == default)
                 {
-                    return CoreResponse.AsBadRequest(Consts.ErrorUserAndOrPasswordInvalidDescription);
+                    return CoreResponse<AuthenticationResponse>.AsBadRequest(Consts.ErrorUserAndOrPasswordInvalidDescription);
                 }
 
                 var authenticationResponse = _authenticationHandler.GenerateAccessToken(userFromRepository);
 
-                return CoreResponse.AsOk(authenticationResponse);
+                return CoreResponse<AuthenticationResponse>.AsOk(authenticationResponse);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
 
-                return CoreResponse.AsError(Consts.ErrorInternalServerDescription);
+                return CoreResponse<AuthenticationResponse>.AsError(Consts.ErrorInternalServerDescription);
             }
         }
     }
