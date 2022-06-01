@@ -36,8 +36,6 @@
     <None Remove="Handlers\TaxCalculateStrategy\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\" />
-    <Folder Include="Core\Workers\" />
     <Folder Include="Handlers\" />
     <Folder Include="Fake\" />
     <Folder Include="Validator\" />
