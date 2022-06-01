@@ -16,21 +16,21 @@ namespace ChallengeNet.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-        private readonly IAuthenticationCore _authenticationCore;
+        private readonly IAuthenticationWorker _authenticationWorker;
 
-        public UserController(ILogger<UserController> logger, IAuthenticationCore authenticationCore)
+        public UserController(ILogger<UserController> logger, IAuthenticationWorker authenticationWorker)
         {
             _logger = logger;
-            _authenticationCore = authenticationCore;
+            _authenticationWorker = authenticationWorker;
         }
 
         [HttpPost("login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AuthenticationResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<AuthenticationResponse>> Login([FromBody] User user)
+        public async Task<IActionResult> Login([FromBody] User user)
         {
-            var result = await _authenticationCore.ExecuteAsync(user);
+            var result = await _authenticationWorker.ExecuteAsync(user);
 
             if (result.HasError)
             {

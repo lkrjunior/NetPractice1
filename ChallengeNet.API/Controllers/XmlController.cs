@@ -24,7 +24,7 @@ namespace ChallengeNet.API.Controllers
         }
 
         [HttpGet("generatexml/nfe/strategyattribute")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
         public ActionResult<string> GenerateXmlNfeStrategyAttribute()
         {
             var xml = _generateXmlHandler.GenerateXml(ProductType.Nfe);
@@ -33,7 +33,7 @@ namespace ChallengeNet.API.Controllers
         }
 
         [HttpGet("generatexml/nfce/strategyattribute")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
         public ActionResult<string> GenerateXmlNfceStrategyAttribute()
         {
             var xml = _generateXmlHandler.GenerateXml(ProductType.Nfce);

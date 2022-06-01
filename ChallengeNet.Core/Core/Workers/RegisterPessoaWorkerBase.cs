@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ChallengeNet.Core.Core.Workers
 {
-    public abstract class RegisterPessoaCoreBase<TEntity, TValidatorClass>
+    public abstract class RegisterPessoaWorkerBase<TEntity, TValidatorClass>
         where TEntity : PessoaBase
         where TValidatorClass : AbstractValidator<TEntity>
     {
@@ -32,15 +32,15 @@ namespace ChallengeNet.Core.Core.Workers
         }
 
         protected readonly IPessoaRepository<TEntity> PessoaRepository;
-        protected readonly ILogger<RegisterPessoaCoreBase<TEntity, TValidatorClass>> Logger;
+        protected readonly ILogger<RegisterPessoaWorkerBase<TEntity, TValidatorClass>> Logger;
 
-        protected RegisterPessoaCoreBase(IPessoaRepository<TEntity> pessoaRepository, ILogger<RegisterPessoaCoreBase<TEntity, TValidatorClass>> logger)
+        protected RegisterPessoaWorkerBase(IPessoaRepository<TEntity> pessoaRepository, ILogger<RegisterPessoaWorkerBase<TEntity, TValidatorClass>> logger)
         {
             PessoaRepository = pessoaRepository;
             Logger = logger;
         }
 
-        public async Task<HttpResponse> Create(TEntity pessoa)
+        public async Task<CoreResponse> Create(TEntity pessoa)
         {
             try
             {
@@ -52,18 +52,18 @@ namespace ChallengeNet.Core.Core.Workers
                 {
                     var errorsMessage = GetErrorMessageFromValidation(validationResult);
 
-                    return HttpResponse.AsBadRequest(errorsMessage);
+                    return CoreResponse.AsBadRequest(errorsMessage);
                 }
 
                 await PessoaRepository.Create(pessoa);
 
-                return HttpResponse.AsOk(pessoa);
+                return CoreResponse.AsOk(pessoa);
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex.Message, ex);
 
-                return HttpResponse.AsError(Consts.ErrorInternalServerDescription);
+                return CoreResponse.AsError(Consts.ErrorInternalServerDescription);
             }
         }
 

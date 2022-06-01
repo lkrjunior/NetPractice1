@@ -97,12 +97,12 @@ namespace ChallengeNet.API
                 };
             });
 
-            services.AddSingleton<IAuthenticationCore, AuthenticationCore>();
+            services.AddSingleton<IAuthenticationWorker, AuthenticationWorker>();
             services.AddSingleton<IUserTokenHandler, UserTokenHandler>();
             services.AddSingleton<IUserRepository, UserRepository>();
 
-            services.AddSingleton<IRegisterPessoaFisicaCore, RegisterPessoaFisicaCore>();
-            services.AddSingleton<IRegisterPessoaJuridicaCore, RegisterPessoaJuridicaCore>();
+            services.AddSingleton<IRegisterPessoaFisicaWorker, RegisterPessoaFisicaWorker>();
+            services.AddSingleton<IRegisterPessoaJuridicaWorker, RegisterPessoaJuridicaWorker>();
             services.AddSingleton<IPessoaRepository<PessoaFisica>, PessoaFisicaRepository>();
             services.AddSingleton<IPessoaRepository<PessoaJuridica>, PessoaJuridicaRepository>();
 

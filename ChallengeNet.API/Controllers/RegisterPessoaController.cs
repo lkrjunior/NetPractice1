@@ -15,24 +15,24 @@ namespace ChallengeNet.API.Controllers
     [Route("[controller]")]
     public class RegisterPessoaController : ControllerBase
     {
-        private readonly IRegisterPessoaFisicaCore _registerPessoaFisicaCore;
-        private readonly IRegisterPessoaJuridicaCore _registerPessoaJuridicaCore;
+        private readonly IRegisterPessoaFisicaWorker _registerPessoaFisicaWorker;
+        private readonly IRegisterPessoaJuridicaWorker _registerPessoaJuridicaWorker;
 
-        public RegisterPessoaController(IRegisterPessoaFisicaCore registerPessoaFisicaCore, IRegisterPessoaJuridicaCore registerPessoaJuridicaCore)
+        public RegisterPessoaController(IRegisterPessoaFisicaWorker registerPessoaFisicaWorker, IRegisterPessoaJuridicaWorker registerPessoaJuridicaWorker)
         {
-            _registerPessoaFisicaCore = registerPessoaFisicaCore;
-            _registerPessoaJuridicaCore = registerPessoaJuridicaCore;
+            _registerPessoaFisicaWorker = registerPessoaFisicaWorker;
+            _registerPessoaJuridicaWorker = registerPessoaJuridicaWorker;
         }
 
         [Authorize(Roles = "admin")]
         [HttpPost("pessoafisica/create")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PessoaFisica))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PessoaFisica>> CreatePessoaFisica([FromBody] PessoaFisica pessoa)
+        public async Task<IActionResult> CreatePessoaFisica([FromBody] PessoaFisica pessoa)
         {
-            var result = await _registerPessoaFisicaCore.Create(pessoa);
+            var result = await _registerPessoaFisicaWorker.Create(pessoa);
 
             if (result.HasError)
             {
@@ -44,13 +44,13 @@ namespace ChallengeNet.API.Controllers
 
         [Authorize(Roles = "admin,user")]
         [HttpGet("pessoafisica/find")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PessoaFisica))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PessoaFisica>> FindPessoaFisica([FromQuery] string cpf)
+        public async Task<IActionResult> FindPessoaFisica([FromQuery] string cpf)
         {
-            var result = await _registerPessoaFisicaCore.Find(cpf);
+            var result = await _registerPessoaFisicaWorker.Find(cpf);
 
             if (result.HasError)
             {
@@ -62,13 +62,13 @@ namespace ChallengeNet.API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost("pessoajuridica/create")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PessoaJuridica))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PessoaJuridica>> CreatePessoaJuridica([FromBody] PessoaJuridica pessoa)
+        public async Task<IActionResult> CreatePessoaJuridica([FromBody] PessoaJuridica pessoa)
         {
-            var result = await _registerPessoaJuridicaCore.Create(pessoa);
+            var result = await _registerPessoaJuridicaWorker.Create(pessoa);
 
             if (result.HasError)
             {
@@ -80,13 +80,13 @@ namespace ChallengeNet.API.Controllers
 
         [Authorize(Roles = "admin,user")]
         [HttpGet("pessoajuridica/find")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PessoaJuridica))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PessoaJuridica>> FindPessoaJuridica([FromQuery] string cnpj)
+        public async Task<IActionResult> FindPessoaJuridica([FromQuery] string cnpj)
         {
-            var result = await _registerPessoaJuridicaCore.Find(cnpj);
+            var result = await _registerPessoaJuridicaWorker.Find(cnpj);
 
             if (result.HasError)
             {

@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Http;
 
 namespace ChallengeNet.Core.Models.Response
 {
-    public sealed class HttpResponse
+    public sealed class CoreResponse
     {
         public int HttpStatusCode { get; set; }
         public object Data { get; private set; }
         public string ErrorMessage { get; private set; }
         public bool HasError { get; private set; }
 
-        private static HttpResponse AsError(int httpStatusCode, string errorMessage)
+        private static CoreResponse AsError(int httpStatusCode, string errorMessage)
         {
-            return new HttpResponse()
+            return new CoreResponse()
             {
                 HttpStatusCode = httpStatusCode,
                 HasError = true,
@@ -20,9 +20,9 @@ namespace ChallengeNet.Core.Models.Response
             };
         }
 
-        public static HttpResponse AsOk(object responseData)
+        public static CoreResponse AsOk(object responseData)
         {
-            return new HttpResponse()
+            return new CoreResponse()
             {
                 HttpStatusCode = StatusCodes.Status200OK,
                 HasError = false,
@@ -30,22 +30,22 @@ namespace ChallengeNet.Core.Models.Response
             };
         }
 
-        public static HttpResponse AsNotFound(string errorMessage)
+        public static CoreResponse AsNotFound(string errorMessage)
         {
             return AsError(StatusCodes.Status404NotFound, errorMessage);
         }
 
-        public static HttpResponse AsUnauthorized(string errorMessage)
+        public static CoreResponse AsUnauthorized(string errorMessage)
         {
             return AsError(StatusCodes.Status401Unauthorized, errorMessage);
         }
 
-        public static HttpResponse AsBadRequest(string errorMessage)
+        public static CoreResponse AsBadRequest(string errorMessage)
         {
             return AsError(StatusCodes.Status400BadRequest, errorMessage);
         }
 
-        public static HttpResponse AsError(string errorMessage)
+        public static CoreResponse AsError(string errorMessage)
         {
             return AsError(StatusCodes.Status500InternalServerError, errorMessage);
         }

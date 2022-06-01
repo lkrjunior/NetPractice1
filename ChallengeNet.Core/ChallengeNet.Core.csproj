@@ -27,13 +27,8 @@
     <None Remove="Handlers\TaxCalculateStrategy\Strategies\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Models\User\" />
-    <Folder Include="Models\Response\" />
-    <Folder Include="Core\" />
     <Folder Include="Handlers\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Core\Workers\" />
     <Folder Include="Core\HostedWorkers\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Models\Register\" />

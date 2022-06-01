@@ -8,20 +8,20 @@ using Microsoft.Extensions.Logging;
 
 namespace ChallengeNet.Core.Core.Workers
 {
-    public class AuthenticationCore : IAuthenticationCore
+    public class AuthenticationWorker : IAuthenticationWorker
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserTokenHandler _authenticationHandler;
-        private readonly ILogger<AuthenticationCore> _logger;
+        private readonly ILogger<AuthenticationWorker> _logger;
 
-        public AuthenticationCore(IUserRepository userRepository, IUserTokenHandler authenticationHandler, ILogger<AuthenticationCore> logger)
+        public AuthenticationWorker(IUserRepository userRepository, IUserTokenHandler authenticationHandler, ILogger<AuthenticationWorker> logger)
         {
             _userRepository = userRepository;
             _authenticationHandler = authenticationHandler;
             _logger = logger;
         }
 
-        public async Task<HttpResponse> ExecuteAsync(User user)
+        public async Task<CoreResponse> ExecuteAsync(User user)
         {
             try
             {
@@ -29,18 +29,18 @@ namespace ChallengeNet.Core.Core.Workers
 
                 if (userFromRepository == default)
                 {
-                    return HttpResponse.AsBadRequest(Consts.ErrorUserAndOrPasswordInvalidDescription);
+                    return CoreResponse.AsBadRequest(Consts.ErrorUserAndOrPasswordInvalidDescription);
                 }
 
                 var authenticationResponse = _authenticationHandler.GenerateAccessToken(userFromRepository);
 
-                return HttpResponse.AsOk(authenticationResponse);
+                return CoreResponse.AsOk(authenticationResponse);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
 
-                return HttpResponse.AsError(Consts.ErrorInternalServerDescription);
+                return CoreResponse.AsError(Consts.ErrorInternalServerDescription);
             }
         }
     }

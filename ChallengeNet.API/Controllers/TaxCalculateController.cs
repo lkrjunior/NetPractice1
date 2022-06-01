@@ -28,7 +28,7 @@ namespace ChallengeNet.API.Controllers
         }
 
         [HttpGet("taxcalculate/nfe/strategy")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(double))]
         public ActionResult<double> TaxCalculateNfeStrategy([FromQuery] double value)
         {
             var handler = new TaxCalculateHandler(_funcTaxCalculateStrategy(ProductType.Nfe));
@@ -39,7 +39,7 @@ namespace ChallengeNet.API.Controllers
         }
 
         [HttpGet("taxcalculate/nfce/strategy")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(double))]
         public ActionResult<double> TaxCalculateNfceStrategy([FromQuery] double value)
         {
             var handler = new TaxCalculateHandler(_funcTaxCalculateStrategy(ProductType.Nfce));
@@ -50,7 +50,7 @@ namespace ChallengeNet.API.Controllers
         }
 
         [HttpGet("taxcalculate/nfe/strategywithfunc")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(double))]
         public ActionResult<double> TaxCalculateNfeStrategyWithFunc([FromQuery] double value)
         {
             var result = _taxCalculateWithFuncHandler.CalculateTax(ProductType.Nfe, value);
@@ -59,7 +59,7 @@ namespace ChallengeNet.API.Controllers
         }
 
         [HttpGet("taxcalculate/nfce/strategywithfunc")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(double))]
         public ActionResult<double> TaxCalculateNfceStrategyWithFunc([FromQuery] double value)
         {
             var result = _taxCalculateWithFuncHandler.CalculateTax(ProductType.Nfce, value);

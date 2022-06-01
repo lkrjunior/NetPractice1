@@ -5,9 +5,8 @@ using ChallengeNet.Core.Models.Response;
 
 namespace ChallengeNet.Core.Interfaces
 {
-    public interface IRegisterPessoaCore<T>
-        where T : PessoaBase
+    public interface IRegisterPessoaJuridicaWorker : IRegisterPessoaWorker<PessoaJuridica>
     {
-        Task<HttpResponse> Create(T pessoa);
+        Task<CoreResponse> Find(string cnpj);
     }
 }

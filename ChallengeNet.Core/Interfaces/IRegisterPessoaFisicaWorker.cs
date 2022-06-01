@@ -5,8 +5,8 @@ using ChallengeNet.Core.Models.Response;
 
 namespace ChallengeNet.Core.Interfaces
 {
-    public interface IRegisterPessoaFisicaCore : IRegisterPessoaCore<PessoaFisica>
+    public interface IRegisterPessoaFisicaWorker : IRegisterPessoaWorker<PessoaFisica>
     {
-        Task<HttpResponse> Find(string cpf);
+        Task<CoreResponse> Find(string cpf);
     }
 }

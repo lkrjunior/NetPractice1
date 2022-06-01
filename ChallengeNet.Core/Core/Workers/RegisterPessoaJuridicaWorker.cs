@@ -9,14 +9,14 @@ using Microsoft.Extensions.Logging;
 
 namespace ChallengeNet.Core.Core.Workers
 {
-    public class RegisterPessoaJuridicaCore : RegisterPessoaCoreBase<PessoaJuridica, PessoaJuridicaValidator>, IRegisterPessoaJuridicaCore
+    public class RegisterPessoaJuridicaWorker : RegisterPessoaWorkerBase<PessoaJuridica, PessoaJuridicaValidator>, IRegisterPessoaJuridicaWorker
     {
-        public RegisterPessoaJuridicaCore(IPessoaRepository<PessoaJuridica> pessoaRepository, ILogger<RegisterPessoaJuridicaCore> logger)
+        public RegisterPessoaJuridicaWorker(IPessoaRepository<PessoaJuridica> pessoaRepository, ILogger<RegisterPessoaJuridicaWorker> logger)
             : base(pessoaRepository, logger)
         {
         }
 
-        public async Task<HttpResponse> Find(string cnpj)
+        public async Task<CoreResponse> Find(string cnpj)
         {
             try
             {
@@ -24,16 +24,16 @@ namespace ChallengeNet.Core.Core.Workers
 
                 if (result == default)
                 {
-                    return HttpResponse.AsNotFound($"{nameof(cnpj)} {Consts.ErrorNotFoundDescription}");
+                    return CoreResponse.AsNotFound($"{nameof(cnpj)} {Consts.ErrorNotFoundDescription}");
                 }
 
-                return HttpResponse.AsOk(result);
+                return CoreResponse.AsOk(result);
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex.Message, ex);
 
-                return HttpResponse.AsError(Consts.ErrorInternalServerDescription);
+                return CoreResponse.AsError(Consts.ErrorInternalServerDescription);
             }
         }
 

@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace ChallengeNet.Core.Interfaces
 {
-    public interface IAuthenticationCore
+    public interface IAuthenticationWorker
     {
-        Task<HttpResponse> ExecuteAsync(User user);
+        Task<CoreResponse> ExecuteAsync(User user);
     }
 }
