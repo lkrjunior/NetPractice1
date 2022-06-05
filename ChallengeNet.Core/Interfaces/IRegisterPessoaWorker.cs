@@ -8,6 +8,6 @@ namespace ChallengeNet.Core.Interfaces
     public interface IRegisterPessoaWorker<T>
         where T : PessoaBase
     {
-        Task<CoreResponse<T>> Create(T pessoa);
+        Task<CoreResult<T>> Create(T pessoa);
     }
 }

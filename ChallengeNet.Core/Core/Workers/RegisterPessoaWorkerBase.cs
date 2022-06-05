@@ -40,7 +40,7 @@ namespace ChallengeNet.Core.Core.Workers
             Logger = logger;
         }
 
-        public async Task<CoreResponse<TEntity>> Create(TEntity pessoa)
+        public async Task<CoreResult<TEntity>> Create(TEntity pessoa)
         {
             try
             {
@@ -52,18 +52,18 @@ namespace ChallengeNet.Core.Core.Workers
                 {
                     var errorsMessage = GetErrorMessageFromValidation(validationResult);
 
-                    return CoreResponse<TEntity>.AsBadRequest(errorsMessage);
+                    return CoreResult<TEntity>.AsBadRequest(errorsMessage);
                 }
 
                 await PessoaRepository.Create(pessoa);
 
-                return CoreResponse<TEntity>.AsOk(pessoa);
+                return CoreResult<TEntity>.AsOk(pessoa);
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex.Message, ex);
 
-                return CoreResponse<TEntity>.AsError(Consts.ErrorInternalServerDescription);
+                return CoreResult<TEntity>.AsError(Consts.ErrorInternalServerDescription);
             }
         }
 

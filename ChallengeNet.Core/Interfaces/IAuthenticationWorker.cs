@@ -6,6 +6,6 @@ namespace ChallengeNet.Core.Interfaces
 {
     public interface IAuthenticationWorker
     {
-        Task<CoreResponse<AuthenticationResponse>> ExecuteAsync(User user);
+        Task<CoreResult<AuthenticationResponse>> ExecuteAsync(User user);
     }
 }

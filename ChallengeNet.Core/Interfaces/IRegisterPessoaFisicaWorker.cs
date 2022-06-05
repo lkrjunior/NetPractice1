@@ -7,6 +7,6 @@ namespace ChallengeNet.Core.Interfaces
 {
     public interface IRegisterPessoaFisicaWorker : IRegisterPessoaWorker<PessoaFisica>
     {
-        Task<CoreResponse<PessoaFisica>> Find(string cpf);
+        Task<CoreResult<PessoaFisica>> Find(string cpf);
     }
 }
