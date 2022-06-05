@@ -281,5 +281,48 @@ namespace ChallengeNet.Test.Core.Workers
 
             #endregion
         }
+
+        [Fact]
+        public async Task ShouldReturnsInternalServerErrorOnFindWhenSearchReturnsException()
+        {
+            #region Arrange
+
+            var expectedHttpStatusCode = StatusCodes.Status500InternalServerError;
+
+            var cpf = "12345678901";
+
+            var pessoa = new PessoaFisica()
+            {
+                Name = "Name",
+                Cpf = cpf
+            };
+
+            var innerException = new Exception();
+            var repositoryMock = new Mock<IPessoaRepository<PessoaFisica>>();
+            repositoryMock.Setup(x => x.Find(It.IsAny<string>()))
+                .ThrowsAsync(new RepositoryException(innerException));
+
+            var loggerMock = new Mock<ILogger<RegisterPessoaFisicaWorker>>();
+
+            var worker = new RegisterPessoaFisicaWorker(repositoryMock.Object, loggerMock.Object);
+            #endregion
+
+            #region Act
+
+            var result = await worker.Find(cpf);
+
+            #endregion
+
+            #region Assert
+
+            repositoryMock.Verify(x => x.Create(It.IsAny<PessoaFisica>()), Times.Never);
+            repositoryMock.Verify(x => x.Find(It.IsAny<string>()), Times.Once);
+
+            Assert.True(result.HasError);
+            Assert.Equal(expectedHttpStatusCode, result.HttpStatusCode);
+            Assert.NotNull(result.ErrorMessage);
+
+            #endregion
+        }
     }
 }
