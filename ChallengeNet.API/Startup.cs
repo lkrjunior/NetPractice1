@@ -35,37 +35,19 @@ namespace ChallengeNet.API
 
         public IConfiguration Configuration { get; }
 
-        private void ConfigureAuthentication(IServiceCollection services)
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
         {
-            var key = Encoding.ASCII.GetBytes(Configuration[Consts.SecretKey]);
-            var validIssuer = Configuration[Consts.Issuer];
-            var validAudience = Configuration[Consts.Audience];
+            #region Controllers and Heath Check
 
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero,
-                    ValidIssuer = validIssuer,
-                    ValidAudience = validAudience
-                };
-            });
-        }
+            services.AddControllers();
 
-        private void ConfigureSwagger(IServiceCollection services)
-        {
+            services.AddHealthChecks();
+
+            #endregion
+
+            #region Swagger
+
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "Challenge.API", Version = "v1" });
@@ -95,10 +77,41 @@ namespace ChallengeNet.API
                     }
                 });
             });
-        }
 
-        private void ConfigureSystemServices(IServiceCollection services)
-        {
+            #endregion
+
+            #region Authentication
+
+            var key = Encoding.ASCII.GetBytes(Configuration[Consts.SecretKey]);
+            var validIssuer = Configuration[Consts.Issuer];
+            var validAudience = Configuration[Consts.Audience];
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                    ValidIssuer = validIssuer,
+                    ValidAudience = validAudience
+                };
+            });
+
+            #endregion
+
+            #region Workers, HostedWorkers, Services, Repositories and Handlers
+
             services.AddSingleton<IAuthenticationWorker, AuthenticationWorker>();
             services.AddSingleton<IUserTokenHandler, UserTokenHandler>();
             services.AddSingleton<IUserRepository, UserRepository>();
@@ -121,21 +134,8 @@ namespace ChallengeNet.API
             });
 
             services.AddSingleton<ITaxCalculateWithFuncHandler, TaxCalculateWithFuncHandler>();
-        }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-
-            services.AddControllers();
-
-            services.AddHealthChecks();
-
-            ConfigureSwagger(services);
-
-            ConfigureAuthentication(services);
-
-            ConfigureSystemServices(services);
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
