@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace ChallengeNet.Core.Exceptions
 {
     [Serializable]
-    public class RepositoryException : Exception
+    public class RepositoryException : Exception, ISerializable
     {
         private const string _messageBase = "Error on Repository: ";
 

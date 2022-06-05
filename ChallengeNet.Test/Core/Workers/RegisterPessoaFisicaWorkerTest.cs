@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ChallengeNet.Core.Core.Workers;
+using ChallengeNet.Core.Exceptions;
 using ChallengeNet.Core.Interfaces;
 using ChallengeNet.Core.Models.Register;
 using Microsoft.AspNetCore.Http;
@@ -96,6 +97,46 @@ namespace ChallengeNet.Test.Core.Workers
 
             var repositoryMock = new Mock<IPessoaRepository<PessoaFisica>>();
             repositoryMock.Setup(x => x.Create(It.IsAny<PessoaFisica>())).ThrowsAsync(new Exception());
+
+            var loggerMock = new Mock<ILogger<RegisterPessoaFisicaWorker>>();
+
+            var worker = new RegisterPessoaFisicaWorker(repositoryMock.Object, loggerMock.Object);
+
+            #endregion
+
+            #region Act
+
+            var result = await worker.Create(pessoa);
+
+            #endregion
+
+            #region Assert
+
+            repositoryMock.Verify(x => x.Create(It.IsAny<PessoaFisica>()), Times.Once);
+
+            Assert.True(result.HasError);
+            Assert.Equal(expectedHttpStatusCode, result.HttpStatusCode);
+            Assert.NotNull(result.ErrorMessage);
+
+            #endregion
+        }
+
+        [Fact]
+        public async Task ShouldReturnsInternalServerErrorOnCreateWhenThrowsAnRepositoryException()
+        {
+            #region Arrange
+
+            var expectedHttpStatusCode = StatusCodes.Status500InternalServerError;
+
+            var pessoa = new PessoaFisica()
+            {
+                Name = "Name",
+                Cpf = "12345678901"
+            };
+
+            var innerException = new Exception();
+            var repositoryMock = new Mock<IPessoaRepository<PessoaFisica>>();
+            repositoryMock.Setup(x => x.Create(It.IsAny<PessoaFisica>())).ThrowsAsync(new RepositoryException(innerException));
 
             var loggerMock = new Mock<ILogger<RegisterPessoaFisicaWorker>>();
 
