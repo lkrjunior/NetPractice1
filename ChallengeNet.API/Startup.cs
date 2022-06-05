@@ -41,6 +41,8 @@ namespace ChallengeNet.API
 
             services.AddControllers();
 
+            services.AddHealthChecks();
+
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "Challenge.API", Version = "v1" });
@@ -145,6 +147,8 @@ namespace ChallengeNet.API
             {
                 endpoints.MapControllers();
             });
+
+            app.UseHealthChecks("/healthcheck");
         }
     }
 }
