@@ -35,14 +35,37 @@ namespace ChallengeNet.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        private void ConfigureAuthentication(IServiceCollection services)
         {
+            var key = Encoding.ASCII.GetBytes(Configuration[Consts.SecretKey]);
+            var validIssuer = Configuration[Consts.Issuer];
+            var validAudience = Configuration[Consts.Audience];
 
-            services.AddControllers();
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                    ValidIssuer = validIssuer,
+                    ValidAudience = validAudience
+                };
+            });
+        }
 
-            services.AddHealthChecks();
-
+        private void ConfigureSwagger(IServiceCollection services)
+        {
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "Challenge.API", Version = "v1" });
@@ -72,33 +95,10 @@ namespace ChallengeNet.API
                     }
                 });
             });
+        }
 
-            var key = Encoding.ASCII.GetBytes(Configuration[Consts.SecretKey]);
-            var validIssuer = Configuration[Consts.Issuer];
-            var validAudience = Configuration[Consts.Audience];
-
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero,
-                    ValidIssuer = validIssuer,
-                    ValidAudience = validAudience
-                };
-            });
-
+        private void ConfigureSystemServices(IServiceCollection services)
+        {
             services.AddSingleton<IAuthenticationWorker, AuthenticationWorker>();
             services.AddSingleton<IUserTokenHandler, UserTokenHandler>();
             services.AddSingleton<IUserRepository, UserRepository>();
@@ -121,6 +121,21 @@ namespace ChallengeNet.API
             });
 
             services.AddSingleton<ITaxCalculateWithFuncHandler, TaxCalculateWithFuncHandler>();
+        }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+
+            services.AddControllers();
+
+            services.AddHealthChecks();
+
+            ConfigureSwagger(services);
+
+            ConfigureAuthentication(services);
+
+            ConfigureSystemServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
