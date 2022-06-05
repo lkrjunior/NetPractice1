@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="Swashbuckle.AspNetCore.Swagger" />
     <None Remove="Swashbuckle.AspNetCore" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
@@ -17,5 +18,8 @@
     <ProjectReference Include="..\ChallengeNet.Core\ChallengeNet.Core.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>
