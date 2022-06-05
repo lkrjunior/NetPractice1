@@ -17,6 +17,11 @@ namespace ChallengeNet.API.Controllers
         private readonly ILogger<XmlController> _logger;
         private readonly IGenerateXmlHandler _generateXmlHandler;
 
+        private void LogInformation<T>(T xml)
+        {
+            _logger.LogInformation($"Xml {xml}");
+        }
+
         public XmlController(ILogger<XmlController> logger, IGenerateXmlHandler generateXmlHandler)
         {
             _logger = logger;
@@ -29,6 +34,8 @@ namespace ChallengeNet.API.Controllers
         {
             var xml = _generateXmlHandler.GenerateXml(ProductType.Nfe);
 
+            LogInformation(xml);
+
             return Ok(xml.ToString());
         }
 
@@ -37,6 +44,8 @@ namespace ChallengeNet.API.Controllers
         public ActionResult<string> GenerateXmlNfceStrategyAttribute()
         {
             var xml = _generateXmlHandler.GenerateXml(ProductType.Nfce);
+
+            LogInformation(xml);
 
             return Ok(xml.ToString());
         }

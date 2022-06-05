@@ -20,6 +20,11 @@ namespace ChallengeNet.API.Controllers
         private readonly Func<ProductType, ITaxCalculateStrategy> _funcTaxCalculateStrategy;
         private readonly ITaxCalculateWithFuncHandler _taxCalculateWithFuncHandler;
 
+        private void LogInformation<T>(T result)
+        {
+            _logger.LogInformation($"Result {result}");
+        }
+
         public TaxCalculateController(ILogger<TaxCalculateController> logger, Func<ProductType, ITaxCalculateStrategy> funcTaxCalculateStrategy, ITaxCalculateWithFuncHandler taxCalculateWithFuncHandler)
         {
             _logger = logger;
@@ -35,6 +40,8 @@ namespace ChallengeNet.API.Controllers
 
             var result = handler.CalculateTax(value);
 
+            LogInformation(result);
+
             return Ok(result);
         }
 
@@ -46,6 +53,8 @@ namespace ChallengeNet.API.Controllers
 
             var result = handler.CalculateTax(value);
 
+            LogInformation(result);
+
             return Ok(result);
         }
 
@@ -55,6 +64,8 @@ namespace ChallengeNet.API.Controllers
         {
             var result = _taxCalculateWithFuncHandler.CalculateTax(ProductType.Nfe, value);
 
+            LogInformation(result);
+
             return Ok(result);
         }
 
@@ -63,6 +74,8 @@ namespace ChallengeNet.API.Controllers
         public ActionResult<double> TaxCalculateNfceStrategyWithFunc([FromQuery] double value)
         {
             var result = _taxCalculateWithFuncHandler.CalculateTax(ProductType.Nfce, value);
+
+            LogInformation(result);
 
             return Ok(result);
         }

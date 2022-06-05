@@ -15,12 +15,10 @@ namespace ChallengeNet.API.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
         private readonly IAuthenticationWorker _authenticationWorker;
 
-        public UserController(ILogger<UserController> logger, IAuthenticationWorker authenticationWorker)
+        public UserController(IAuthenticationWorker authenticationWorker)
         {
-            _logger = logger;
             _authenticationWorker = authenticationWorker;
         }
 
