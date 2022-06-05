@@ -10,6 +10,8 @@ namespace ChallengeNet.Test.Handlers.TaxCalculateStrategy
 {
     public class TaxCalculateWithFuncHandlerTest
     {
+        private readonly Func<ProductType, ITaxCalculateStrategy> _funcTaxCalculateStrategy;
+
         private Func<ProductType, ITaxCalculateStrategy> InitializeFuncTaxCalculateStrategy()
         {
             return (ProductType productType) =>
@@ -23,6 +25,11 @@ namespace ChallengeNet.Test.Handlers.TaxCalculateStrategy
             };
         }
 
+        public TaxCalculateWithFuncHandlerTest()
+        {
+            _funcTaxCalculateStrategy = InitializeFuncTaxCalculateStrategy();
+        }
+
         [Theory]
         [InlineData(ProductType.Nfe, 3)]
         [InlineData(ProductType.Nfce, 2)]
@@ -34,9 +41,7 @@ namespace ChallengeNet.Test.Handlers.TaxCalculateStrategy
 
             var expectedValue = value * valueToValidate;
 
-            Func<ProductType, ITaxCalculateStrategy> funcTaxCalculateStrategy = InitializeFuncTaxCalculateStrategy();
-
-            var handler = new TaxCalculateWithFuncHandler(funcTaxCalculateStrategy);
+            var handler = new TaxCalculateWithFuncHandler(_funcTaxCalculateStrategy);
 
             #endregion
 
