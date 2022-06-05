@@ -50,7 +50,7 @@ jobs:
           # dotnet restore ChallengeNet.sln
           # dotnet build ChallengeNet.sln
           
-          # API
+          # Project
           dotnet restore ChallengeNet.API
           dotnet build ChallengeNet.API
           
