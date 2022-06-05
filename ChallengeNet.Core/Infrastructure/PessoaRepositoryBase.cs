@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChallengeNet.Core.Exceptions;
 using ChallengeNet.Core.Interfaces;
 using ChallengeNet.Core.Models.Register;
 
@@ -12,22 +13,36 @@ namespace ChallengeNet.Core.Infrastructure
     {
         protected ICollection<T> Pessoas;
 
+        public abstract Task<T> Find(string searchDoc);
+
         public async Task<bool> Create(T pessoa)
         {
-            Pessoas.Add(pessoa);
+            try
+            {
+                pessoa.Id = Pessoas.Select(x => x.Id).FirstOrDefault() + 1;
 
-            pessoa.Id = Pessoas.Select(x => x.Id).FirstOrDefault() + 1;
+                Pessoas.Add(pessoa);
 
-            return await Task.FromResult(true);
+                return await Task.FromResult(true);
+            }
+            catch (Exception exception)
+            {
+                throw new RepositoryException(exception);
+            }
         }
-
-        public abstract Task<T> Find(string searchDoc);
 
         public virtual async Task<T> Find(int id)
         {
-            var result = Pessoas.FirstOrDefault(x => x.Id.Equals(id));
+            try
+            {
+                var result = Pessoas.FirstOrDefault(x => x.Id.Equals(id));
 
-            return await Task.FromResult(result);
+                return await Task.FromResult(result);
+            }
+            catch (Exception exception)
+            {
+                throw new RepositoryException(exception);
+            }
         }
     }
 }

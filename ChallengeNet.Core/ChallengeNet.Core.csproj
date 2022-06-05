@@ -25,6 +25,7 @@
     <None Remove="Handlers\GenerateXmlStrategy\Strategies\" />
     <None Remove="Handlers\TaxCalculateStrategy\" />
     <None Remove="Handlers\TaxCalculateStrategy\Strategies\" />
+    <None Remove="Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\User\" />
@@ -39,6 +40,7 @@
     <Folder Include="Handlers\GenerateXmlStrategy\Strategies\" />
     <Folder Include="Handlers\TaxCalculateStrategy\" />
     <Folder Include="Handlers\TaxCalculateStrategy\Strategies\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />

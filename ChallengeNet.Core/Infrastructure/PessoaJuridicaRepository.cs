@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChallengeNet.Core.Exceptions;
 using ChallengeNet.Core.Models.Register;
 
 namespace ChallengeNet.Core.Infrastructure
@@ -15,9 +16,16 @@ namespace ChallengeNet.Core.Infrastructure
 
         public override async Task<PessoaJuridica> Find(string searchDoc)
         {
-            var result = Pessoas.FirstOrDefault(x => x.Cnpj.Equals(searchDoc));
+            try
+            {
+                var result = Pessoas.FirstOrDefault(x => x.Cnpj.Equals(searchDoc));
 
-            return await Task.FromResult(result);
+                return await Task.FromResult(result);
+            }
+            catch (Exception exception)
+            {
+                throw new RepositoryException(exception);
+            }
         }
     }
 }

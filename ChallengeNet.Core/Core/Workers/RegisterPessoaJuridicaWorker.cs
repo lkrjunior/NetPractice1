@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ChallengeNet.Core.Exceptions;
 using ChallengeNet.Core.Interfaces;
 using ChallengeNet.Core.Models;
 using ChallengeNet.Core.Models.Register;
@@ -29,9 +30,15 @@ namespace ChallengeNet.Core.Core.Workers
 
                 return CoreResult<PessoaJuridica>.AsOk(result);
             }
-            catch (Exception ex)
+            catch (RepositoryException repositoryException)
             {
-                Logger.LogError(ex.Message, ex);
+                Logger.LogError(repositoryException.Message, typeof(RepositoryException), repositoryException);
+
+                return CoreResult<PessoaJuridica>.AsError(Consts.ErrorInternalServerDescription);
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception.Message, exception.GetType(), exception);
 
                 return CoreResult<PessoaJuridica>.AsError(Consts.ErrorInternalServerDescription);
             }
