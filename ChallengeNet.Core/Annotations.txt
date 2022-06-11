@@ -12,6 +12,8 @@
     Percentual de teste com o coverlet
     Policies and Roles na Authorization
 
+Issues do GitHub
+
 Code
     Use this to exclude a class from coverage
         using System.Diagnostics.CodeAnalysis;
