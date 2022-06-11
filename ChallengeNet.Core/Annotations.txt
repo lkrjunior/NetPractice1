@@ -13,6 +13,7 @@
     Policies and Roles na Authorization
 
 Issues do GitHub
+Wiki do GitHub
 
 Code
     Use this to exclude a class from coverage
