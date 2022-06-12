@@ -19,17 +19,19 @@ namespace ChallengeNet.API.Controllers
         private readonly ILogger<TaxCalculateController> _logger;
         private readonly Func<ProductType, ITaxCalculateStrategy> _funcTaxCalculateStrategy;
         private readonly ITaxCalculateWithFuncHandler _taxCalculateWithFuncHandler;
+        private readonly IEnumerable<ITaxCalculateStrategy> _taxCalculateStrategies;
 
         private void LogInformation<T>(T result)
         {
             _logger.LogInformation($"Result {result}");
         }
 
-        public TaxCalculateController(ILogger<TaxCalculateController> logger, Func<ProductType, ITaxCalculateStrategy> funcTaxCalculateStrategy, ITaxCalculateWithFuncHandler taxCalculateWithFuncHandler)
+        public TaxCalculateController(ILogger<TaxCalculateController> logger, Func<ProductType, ITaxCalculateStrategy> funcTaxCalculateStrategy, ITaxCalculateWithFuncHandler taxCalculateWithFuncHandler, IEnumerable<ITaxCalculateStrategy> taxCalculateStrategies)
         {
             _logger = logger;
             _funcTaxCalculateStrategy = funcTaxCalculateStrategy;
             _taxCalculateWithFuncHandler = taxCalculateWithFuncHandler;
+            _taxCalculateStrategies = taxCalculateStrategies;
         }
 
         [HttpGet("taxcalculate/nfe/strategy")]
@@ -74,6 +76,32 @@ namespace ChallengeNet.API.Controllers
         public ActionResult<double> TaxCalculateNfceStrategyWithFunc([FromQuery] double value)
         {
             var result = _taxCalculateWithFuncHandler.CalculateTax(ProductType.Nfce, value);
+
+            LogInformation(result);
+
+            return Ok(result);
+        }
+
+        [HttpGet("taxcalculate/nfe/strategywithenumerable")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(double))]
+        public ActionResult<double> TaxCalculateNfeStrategyWithEnumerable([FromQuery] double value)
+        {
+            var handler = _taxCalculateStrategies.FirstOrDefault(x => x.ProductType == ProductType.Nfe);
+
+            var result = handler.CalculateTax(value);
+
+            LogInformation(result);
+
+            return Ok(result);
+        }
+
+        [HttpGet("taxcalculate/nfce/strategywithenumerable")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(double))]
+        public ActionResult<double> TaxCalculateNfceStrategyWithEnumerable([FromQuery] double value)
+        {
+            var handler = _taxCalculateStrategies.FirstOrDefault(x => x.ProductType == ProductType.Nfce);
+
+            var result = handler.CalculateTax(value);
 
             LogInformation(result);
 

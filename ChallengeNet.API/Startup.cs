@@ -72,6 +72,9 @@ namespace ChallengeNet.API
                 };
             });
 
+            services.AddSingleton<ITaxCalculateStrategy, TaxCalculateNfceStrategy>();
+            services.AddSingleton<ITaxCalculateStrategy, TaxCalculateNfeStrategy>();
+
             services.AddSingleton<ITaxCalculateWithFuncHandler, TaxCalculateWithFuncHandler>();
 
             #endregion
