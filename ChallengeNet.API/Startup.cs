@@ -29,11 +29,13 @@ namespace ChallengeNet.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            #region Controllers and Heath Check
+            #region Controllers, HttpClient and Heath Check
 
             services.AddControllers();
 
             services.AddHealthChecks();
+
+            services.AddHttpClient();
 
             #endregion
 
