@@ -7,3 +7,5 @@ git add .
 Terminal
 ls - listar diretorios e arquivos
 cd - selecionar a pasta
+nano [archive name]
+vim [archive name]
