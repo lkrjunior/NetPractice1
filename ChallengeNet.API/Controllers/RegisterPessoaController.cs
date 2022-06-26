@@ -36,7 +36,7 @@ namespace ChallengeNet.API.Controllers
 
             if (result.HasError)
             {
-                return StatusCode(result.HttpStatusCode, result.ErrorMessage);
+                return StatusCode(result.HttpStatusCode, result.Error);
             }
 
             return Ok(result.Data);
@@ -54,7 +54,7 @@ namespace ChallengeNet.API.Controllers
 
             if (result.HasError)
             {
-                return StatusCode(result.HttpStatusCode, result.ErrorMessage);
+                return StatusCode(result.HttpStatusCode, result.Error);
             }
 
             return Ok(result.Data);
@@ -72,7 +72,7 @@ namespace ChallengeNet.API.Controllers
 
             if (result.HasError)
             {
-                return StatusCode(result.HttpStatusCode, result.ErrorMessage);
+                return StatusCode(result.HttpStatusCode, result.Error);
             }
 
             return Ok(result.Data);
@@ -90,7 +90,7 @@ namespace ChallengeNet.API.Controllers
 
             if (result.HasError)
             {
-                return StatusCode(result.HttpStatusCode, result.ErrorMessage);
+                return StatusCode(result.HttpStatusCode, result.Error);
             }
 
             return Ok(result.Data);
