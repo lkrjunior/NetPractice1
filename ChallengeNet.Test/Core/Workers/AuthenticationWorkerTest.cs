@@ -111,7 +111,7 @@ namespace ChallengeNet.Test.Core.Workers
 
             Assert.True(result.HasError);
             Assert.Equal(expectedStatusCode, result.HttpStatusCode);
-            Assert.NotNull(result.ErrorMessage);
+            Assert.NotNull(result.Error);
 
             #endregion
         }
@@ -156,7 +156,7 @@ namespace ChallengeNet.Test.Core.Workers
 
             Assert.True(result.HasError);
             Assert.Equal(expectedStatusCode, result.HttpStatusCode);
-            Assert.NotNull(result.ErrorMessage);
+            Assert.NotNull(result.Error);
 
             #endregion
         }
