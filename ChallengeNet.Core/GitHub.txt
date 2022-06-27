@@ -1,6 +1,9 @@
 ﻿GitHub connections
 https://[user]:[personal_access_token]@github.com:443/lkrjunior/NetPractice1.git
 
+GitHub Access Token
+Settings/Developer Settings/Personal Access Token
+
 git status
 git add .
 
