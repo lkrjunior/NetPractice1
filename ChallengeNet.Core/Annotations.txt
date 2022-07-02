@@ -21,3 +21,4 @@ Code
         [ExcludeFromCodeCoverage]
     Swagger Authorize
         Authorization Value (apikey) = Bearer [accesstoken]
+
