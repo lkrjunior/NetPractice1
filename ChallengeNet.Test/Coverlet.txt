@@ -12,7 +12,7 @@ dotnet test ChallengeNet.Test /p:CollectCoverage=true /p:Exclude="\"[*]Challenge
 
 Windows/MacOS com logger
 dotnet test ChallengeNet.Test "--logger:trx;LogFileName=results.trx" /p:CollectCoverage=true /p:Exclude=[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.* /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80
-dotnet test ChallengeNet.Test "--logger:trx;LogFileName=results.trx" /p:CollectCoverage=true /p:Exclude=[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.*" /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80
+dotnet test ChallengeNet.Test "--logger:trx;LogFileName=results.trx" /p:CollectCoverage=true /p:Exclude="[*]ChallengeNet.Core.Infrastructure.*%2c[*]ChallengeNet.Core.Models.*%2c[*]ChallengeNet.Core.Interfaces.*" /p:CoverletOutputFormat=opencover%2ccobertura /p:ThresholdType=method /p:Threshold=80
 
 Tool Report
 dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.8.6
