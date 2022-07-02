@@ -17,19 +17,9 @@ namespace ChallengeNet.Core.Core.Workers
     {
         private static string GetErrorMessageFromValidation(FluentValidation.Results.ValidationResult validationResult)
         {
-            var messageBuilder = new StringBuilder();
+            var message = string.Join(" ", validationResult.Errors);
 
-            foreach (var errorValidation in validationResult.Errors)
-            {
-                if (messageBuilder.Length > 0)
-                {
-                    messageBuilder.Append(", ");
-                }
-
-                messageBuilder.Append(errorValidation);
-            }
-
-            return messageBuilder.ToString();
+            return message;
         }
 
         protected readonly IPessoaRepository<TEntity> PessoaRepository;
