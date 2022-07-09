@@ -39,13 +39,6 @@ namespace ChallengeNet.Core.Models.Response
             return AsError(statusCode, "Not Found", errorMessage);
         }
 
-        public static CoreResult<TResponse> AsUnauthorized(string errorMessage)
-        {
-            var statusCode = StatusCodes.Status401Unauthorized;
-            
-            return AsError(statusCode, "Unauthorized", errorMessage);
-        }
-
         public static CoreResult<TResponse> AsBadRequest(string errorMessage)
         {
             var statusCode = StatusCodes.Status400BadRequest;
