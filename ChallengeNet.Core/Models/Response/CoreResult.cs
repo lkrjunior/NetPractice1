@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace ChallengeNet.Core.Models.Response
 {
@@ -9,21 +7,18 @@ namespace ChallengeNet.Core.Models.Response
     {
         public int HttpStatusCode { get; private set; }
         public TResponse Data { get; private set; }
-        public ProblemDetails Error { get; private set; }
+        public string ErrorTitle { get; private set; }
+        public string ErrorMessage { get; private set; }
         public bool HasError { get; private set; }
 
-        private static CoreResult<TResponse> AsError(int httpStatusCode, string title, string errorMessage)
+        private static CoreResult<TResponse> AsError(int httpStatusCode, string errorTitle, string errorMessage)
         {
             return new CoreResult<TResponse>()
             {
                 HttpStatusCode = httpStatusCode,
                 HasError = true,
-                Error = new ProblemDetails()
-                {
-                    Title = title,
-                    Detail = errorMessage,
-                    Status = httpStatusCode
-                },
+                ErrorTitle = errorTitle,
+                ErrorMessage = errorMessage
             };
         }
 
@@ -40,33 +35,29 @@ namespace ChallengeNet.Core.Models.Response
         public static CoreResult<TResponse> AsNotFound(string errorMessage)
         {
             var statusCode = StatusCodes.Status404NotFound;
-            var title = nameof(StatusCodes.Status404NotFound);
-
-            return AsError(statusCode, title, errorMessage);
+            
+            return AsError(statusCode, "Not Found", errorMessage);
         }
 
         public static CoreResult<TResponse> AsUnauthorized(string errorMessage)
         {
             var statusCode = StatusCodes.Status401Unauthorized;
-            var title = nameof(StatusCodes.Status401Unauthorized);
-
-            return AsError(statusCode, title, errorMessage);
+            
+            return AsError(statusCode, "Unauthorized", errorMessage);
         }
 
         public static CoreResult<TResponse> AsBadRequest(string errorMessage)
         {
             var statusCode = StatusCodes.Status400BadRequest;
-            var title = nameof(StatusCodes.Status400BadRequest);
-
-            return AsError(statusCode, title, errorMessage);
+            
+            return AsError(statusCode, "Bad Request", errorMessage);
         }
 
         public static CoreResult<TResponse> AsError(string errorMessage)
         {
             var statusCode = StatusCodes.Status500InternalServerError;
-            var title = nameof(StatusCodes.Status500InternalServerError);
-
-            return AsError(statusCode, title, errorMessage);
+            
+            return AsError(statusCode, "Internal server error", errorMessage);
         }
     }
 }
