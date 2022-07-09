@@ -15,7 +15,7 @@ namespace ChallengeNet.Core.Infrastructure
 
         public abstract Task<T> Find(string searchDoc);
 
-        public async Task<bool> Create(T pessoa)
+        public async Task<T> Create(T pessoa)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace ChallengeNet.Core.Infrastructure
 
                 Pessoas.Add(pessoa);
 
-                return await Task.FromResult(true);
+                return await Task.FromResult(pessoa);
             }
             catch (Exception exception)
             {

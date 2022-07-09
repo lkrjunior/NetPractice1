@@ -46,9 +46,9 @@ namespace ChallengeNet.Core.Core.Workers
                     return CoreResult<TEntity>.AsBadRequest(errorsMessage);
                 }
 
-                await PessoaRepository.Create(pessoa);
+                var result = await PessoaRepository.Create(pessoa);
 
-                return CoreResult<TEntity>.AsOk(pessoa);
+                return CoreResult<TEntity>.AsOk(result);
             }
             catch (RepositoryException repositoryException)
             {

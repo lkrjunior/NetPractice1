@@ -18,14 +18,19 @@ namespace ChallengeNet.Test.Core.Workers
         {
             #region Arrange
 
+            var expectedName = "Name";
+            var expectedCnpj = "12345678901234";
+
             var pessoa = new PessoaJuridica()
             {
-                Name = "Name",
-                Cnpj = "12345678901234"
+                Name = expectedName,
+                Cnpj = expectedCnpj
             };
 
+            var pessoaResult = new PessoaJuridica() { Id = 1, Name = pessoa.Name, Cnpj = pessoa.Cnpj };
+
             var repositoryMock = new Mock<IPessoaRepository<PessoaJuridica>>();
-            repositoryMock.Setup(x => x.Create(It.IsAny<PessoaJuridica>())).ReturnsAsync(true);
+            repositoryMock.Setup(x => x.Create(It.IsAny<PessoaJuridica>())).ReturnsAsync(pessoaResult);
 
             var loggerMock = new Mock<ILogger<RegisterPessoaJuridicaWorker>>();
 
@@ -44,6 +49,9 @@ namespace ChallengeNet.Test.Core.Workers
 
             Assert.False(result.HasError);
             Assert.NotNull(result.Data);
+            Assert.True(result.Data.Id > 0);
+            Assert.Equal(expectedName, result.Data.Name);
+            Assert.Equal(expectedCnpj, result.Data.Cnpj);
 
             #endregion
         }
