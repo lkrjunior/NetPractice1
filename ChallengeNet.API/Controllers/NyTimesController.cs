@@ -13,8 +13,7 @@ namespace ChallengeNet.API.Controllers
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly string _apiKey;
-        private readonly string _baseAddress;
-        private readonly string _apiTopStories;
+        private readonly string _apiAddress;
 
         public NyTimesController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
@@ -22,18 +21,15 @@ namespace ChallengeNet.API.Controllers
 
             var sectionNyTimes = configuration.GetSection("NyTimesApi").Get<IDictionary<string, string>>();
             _apiKey = sectionNyTimes["ApiKey"];
-            _baseAddress = sectionNyTimes["BaseAddress"];
-            _apiTopStories = sectionNyTimes["ApiTopStories"];
+            _apiAddress = sectionNyTimes["ApiAddress"];
         }
 
         [HttpGet("topstories")]
         public async Task<IActionResult> GetTopStories()
         {
-            var client = _httpClientFactory.CreateClient();
-                
-            client.BaseAddress = new Uri(_baseAddress);
-
-            var response = await client.GetAsync($"{_apiTopStories}?api-key={_apiKey}");
+            var client = _httpClientFactory.CreateClient(nameof(NyTimesController));
+            
+            var response = await client.GetAsync($"{_apiAddress}?api-key={_apiKey}");
 
             if (response.IsSuccessStatusCode)
             {

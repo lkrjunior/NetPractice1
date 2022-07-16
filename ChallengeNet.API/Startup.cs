@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using ChallengeNet.API.Controllers;
 using ChallengeNet.API.Extensions;
 using ChallengeNet.Core.Core.Workers;
 using ChallengeNet.Core.Handlers;
@@ -35,7 +37,13 @@ namespace ChallengeNet.API
 
             services.AddHealthChecks();
 
-            services.AddHttpClient();
+            services.AddHttpClient(nameof(NyTimesController), httpClient =>
+            {
+                var sectionNyTimes = Configuration.GetSection("NyTimesApi").Get<IDictionary<string, string>>();
+                var baseAddress = sectionNyTimes["BaseAddress"];
+
+                httpClient.BaseAddress = new Uri(baseAddress);
+            });
 
             #endregion
 
