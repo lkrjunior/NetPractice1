@@ -25,5 +25,11 @@
         public const string ErrorUserAndOrPasswordInvalidDescription = "Username and/or Password invalid";
 
         #endregion
+
+        #region HttpClient
+
+        public const string NyTimesHttpClient = "NyTimes";
+
+        #endregion
     }
 }

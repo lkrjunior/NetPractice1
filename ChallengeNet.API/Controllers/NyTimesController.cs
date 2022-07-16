@@ -1,47 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using ChallengeNet.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace ChallengeNet.API.Controllers
 {
     [Route("api/[controller]")]
     public class NyTimesController : ControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly string _apiKey;
-        private readonly string _apiAddress;
-
-        public NyTimesController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        private readonly INyTimesWorker _nyTimesWorker;
+        
+        public NyTimesController(INyTimesWorker nyTimesWorker)
         {
-            _httpClientFactory = httpClientFactory;
-
-            var sectionNyTimes = configuration.GetSection("NyTimesApi").Get<IDictionary<string, string>>();
-            _apiKey = sectionNyTimes["ApiKey"];
-            _apiAddress = sectionNyTimes["ApiAddress"];
+            _nyTimesWorker = nyTimesWorker;
         }
 
         [HttpGet("topstories")]
         public async Task<IActionResult> GetTopStories()
         {
-            var client = _httpClientFactory.CreateClient(nameof(NyTimesController));
-            
-            var response = await client.GetAsync($"{_apiAddress}?api-key={_apiKey}");
+            var result = await _nyTimesWorker.ExecuteAsync();
 
-            if (response.IsSuccessStatusCode)
+            if (result.HasError)
             {
-                var responseJson = await response.Content.ReadAsStringAsync();
-
-                return Ok(responseJson);
+                return Problem(result.ErrorMessage, HttpContext.Request.Path, result.HttpStatusCode, result.ErrorTitle);
             }
 
-            return BadRequest();
-
+            return Ok(result.Data);
         }
-
     }
 }
 

@@ -37,7 +37,7 @@ namespace ChallengeNet.API
 
             services.AddHealthChecks();
 
-            services.AddHttpClient(nameof(NyTimesController), httpClient =>
+            services.AddHttpClient(Consts.NyTimesHttpClient, httpClient =>
             {
                 var sectionNyTimes = Configuration.GetSection("NyTimesApi").Get<IDictionary<string, string>>();
                 var baseAddress = sectionNyTimes["BaseAddress"];
@@ -86,6 +86,8 @@ namespace ChallengeNet.API
             services.AddSingleton<ITaxCalculateStrategy, TaxCalculateNfeStrategy>();
 
             services.AddSingleton<ITaxCalculateWithFuncHandler, TaxCalculateWithFuncHandler>();
+
+            services.AddSingleton<INyTimesWorker, NyTimesWorker>();
 
             #endregion
         }
