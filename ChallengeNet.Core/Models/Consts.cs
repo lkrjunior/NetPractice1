@@ -31,5 +31,14 @@
         public const string NyTimesHttpClient = "NyTimes";
 
         #endregion
+
+        #region NyTimesApi
+
+        public const string NyTimesApiSection = "NyTimesApi";
+        public const string NyTimesApiBaseAddress = "BaseAddress";
+        public const string NyTimesApiAddress = "ApiAddress";
+        public const string NyTimesApiKey = "ApiKey";
+
+        #endregion
     }
 }

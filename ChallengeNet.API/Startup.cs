@@ -39,8 +39,7 @@ namespace ChallengeNet.API
 
             services.AddHttpClient(Consts.NyTimesHttpClient, httpClient =>
             {
-                var sectionNyTimes = Configuration.GetSection("NyTimesApi").Get<IDictionary<string, string>>();
-                var baseAddress = sectionNyTimes["BaseAddress"];
+                var baseAddress = Configuration[$"{Consts.NyTimesApiSection}:{Consts.NyTimesApiBaseAddress}"];
 
                 httpClient.BaseAddress = new Uri(baseAddress);
             });

@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace ChallengeNet.Core.Core.Workers
 {
+    /// <summary>
+    /// https://developer.nytimes.com
+    /// </summary>
     public class NyTimesWorker : INyTimesWorker
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -19,9 +22,8 @@ namespace ChallengeNet.Core.Core.Workers
         {
             _httpClientFactory = httpClientFactory;
 
-            var sectionNyTimes = configuration.GetSection("NyTimesApi").Get<IDictionary<string, string>>();
-            _apiKey = sectionNyTimes["ApiKey"];
-            _apiAddress = sectionNyTimes["ApiAddress"];
+            _apiKey = configuration[$"{Consts.NyTimesApiSection}:{Consts.NyTimesApiKey}"];
+            _apiAddress = configuration[$"{Consts.NyTimesApiSection}:{Consts.NyTimesApiAddress}"];
         }
 
         public async Task<CoreResult<string>> ExecuteAsync()
