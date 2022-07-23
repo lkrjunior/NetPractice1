@@ -11,6 +11,23 @@ namespace ChallengeNet.Core.Core.Workers
 {
     /// <summary>
     /// https://developer.nytimes.com
+    ///
+    /// appsettings.Development.json
+    /// {
+    ///   "Logging": {
+    ///     "LogLevel": {
+    ///       "Default": "Information",
+    ///       "Microsoft": "Warning",
+    ///       "Microsoft.Hosting.Lifetime": "Information"
+    ///     }
+    ///   },
+    ///   "NyTimesApi": {
+    ///     "BaseAddress": "https://api.nytimes.com/",
+    ///     "ApiAddress": "svc/topstories/v2/world.json",
+    ///     "ApiKey": "" //get on https://developer.nytimes.com/
+    ///   }
+    /// }
+    ///
     /// </summary>
     public class NyTimesWorker : INyTimesWorker
     {
