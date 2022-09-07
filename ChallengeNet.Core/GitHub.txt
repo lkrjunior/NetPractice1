@@ -8,7 +8,11 @@ git status
 git add .
 
 Terminal
-ls - listar diretorios e arquivos
-cd - selecionar a pasta
+ls = listar diretorios e arquivos
+ls -a = listar todos arquivos
+cd = selecionar a pasta
+cd .. = voltar
 nano [archive name]
 vim [archive name]
+
+https://support.apple.com/pt-br/guide/terminal/apdb02f1133-25af-4c65-8976-159609f99817/mac
