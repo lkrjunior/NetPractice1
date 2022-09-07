@@ -15,4 +15,5 @@ cd .. = voltar
 nano [archive name]
 vim [archive name]
 
+usar nano no terminal
 https://support.apple.com/pt-br/guide/terminal/apdb02f1133-25af-4c65-8976-159609f99817/mac
